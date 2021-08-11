@@ -1,11 +1,9 @@
 package com.github.manimovassagh.RestAPISpring.rest;
 
 
-import com.github.manimovassagh.RestAPISpring.dao.EmployeeDAO;
 import com.github.manimovassagh.RestAPISpring.entity.Employee;
 import com.github.manimovassagh.RestAPISpring.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +13,7 @@ import java.util.List;
 public class EmployeeRestController {
 
 
-    private  EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     @Autowired
     public EmployeeRestController(EmployeeService theEmployeeService) {

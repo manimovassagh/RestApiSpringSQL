@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 
-    private EntityManager entityManager;
+    private  EntityManager entityManager;
 
     @Autowired
     public EmployeeDAOHibernateImpl(EntityManager theEntityManager) {
@@ -26,8 +26,8 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
         //create a query
         Query<Employee> theQuery =
                 currentSession.createQuery("From Employee", Employee.class);
-        List<Employee> employees = theQuery.getResultList();
-        return employees;
+        return theQuery.getResultList();
+
     }
 
 
@@ -35,8 +35,8 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
     public Employee findById(int theId) {
         Session currentSession = entityManager.unwrap(Session.class);
         //get the employee
-        Employee theEmployee = currentSession.get(Employee.class, theId);
-        return theEmployee;
+
+        return currentSession.get(Employee.class, theId);
     }
 
     @Override
@@ -44,13 +44,12 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(theEmployee);
 
-
     }
 
     @Override
     public void deleteById(int theId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Employee> theQuery = currentSession.createQuery("DELETE From Employee WHERE id=:employee", Employee.class);
+        Query theQuery = currentSession.createQuery("delete from Employee where id=:employeeId");
         theQuery.setParameter("employeeId", theId);
         theQuery.executeUpdate();
     }

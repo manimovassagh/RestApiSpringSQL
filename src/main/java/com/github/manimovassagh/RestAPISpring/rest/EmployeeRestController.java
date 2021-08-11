@@ -14,7 +14,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class EmployeeRestController {
 
-    private EmployeeService employeeService;
+
+    private  EmployeeService employeeService;
 
     @Autowired
     public EmployeeRestController(EmployeeService theEmployeeService) {
@@ -36,9 +37,37 @@ public class EmployeeRestController {
     }
 
     @PostMapping("/employees")
-    public void addEmployee(Employee employee) {
-        employeeService.save(employee);
+    public Employee addEmployee(@RequestBody Employee theEmployee) {
+
+        theEmployee.setId(0);
+        employeeService.save(theEmployee);
+        return theEmployee;
     }
+
+
+    @DeleteMapping("/employees/{id}")
+    public String deleteEmployeeById(@PathVariable int id){
+        Employee foundEmployee = employeeService.findById(id);
+        if (foundEmployee==null){
+            throw new RuntimeException("Id Number " + id + " Not Exist");
+        }
+        employeeService.deleteById(id);
+        return "Deleted employee id - " + id;
+
+    }
+
+
+    @PutMapping("/employees")
+    public Employee updateEmployee(@RequestBody Employee theEmployee) {
+
+        employeeService.save(theEmployee);
+
+        return theEmployee;
+    }
+
+
+
+
 
 
 }

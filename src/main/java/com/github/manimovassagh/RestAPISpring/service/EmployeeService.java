@@ -5,13 +5,13 @@ import com.github.manimovassagh.RestAPISpring.entity.Employee;
 import java.util.List;
 
 public interface EmployeeService {
-    public List<Employee> findAll();
+    List<Employee> findAll();
 
-    public Employee findById(int theId);
+    Employee findById(int theId);
 
-    public void save(Employee employee);
+    void save(Employee employee);
 
-    public void deleteById(int theId);
+    void deleteById(int theId);
 
 
 }
